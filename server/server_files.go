@@ -39,10 +39,6 @@ func (s *Server) serveFiles(w http.ResponseWriter, r *http.Request) {
 		dldir := s.state.Config.DownloadDirectory
 		file := filepath.Join(dldir, url)
 		//only allow fetches/deletes inside the dl dir
-		if !strings.HasPrefix(file, dldir) || dldir == file {
-			http.Error(w, "Nice try\n"+dldir+"\n"+file, http.StatusBadRequest)
-			return
-		}
 		info, err := os.Stat(file)
 		if err != nil {
 			http.Error(w, "File stat error: "+err.Error(), http.StatusBadRequest)
